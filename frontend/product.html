@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartShop Lite — Product</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="nav-bar">
+      <a href="index.html" class="brand">Smart<span>Shop</span></a>
+      <div class="nav-search">
+        <input type="search" id="searchInput" placeholder="Search products..." aria-label="Search products" />
+      </div>
+      <div class="nav-links">
+        <a href="index.html">Shop</a>
+        <a href="admin.html">Admin</a>
+        <button class="cart-btn" data-open-cart type="button">
+          🛒 Cart <span class="cart-count">0</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="breadcrumb"><a href="index.html">Shop</a> / <span id="breadcrumbName">Product</span></div>
+    <div id="productDetailRoot">
+      <div class="skeleton" style="height:400px;"></div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">SmartShop Lite &mdash; a demo e-commerce app built with Node.js, Express &amp; MongoDB.</div>
+  </footer>
+
+  <!-- Cart drawer -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart">
+    <div class="cart-drawer__header">
+      <h2>Your Cart</h2>
+      <button class="cart-close" id="cartClose" type="button" aria-label="Close cart">&times;</button>
+    </div>
+    <div class="cart-drawer__items" id="cartItems"></div>
+    <div class="cart-drawer__footer">
+      <div class="cart-subtotal">
+        <span>Subtotal</span>
+        <span id="cartSubtotal">$0.00</span>
+      </div>
+      <button class="btn btn-primary btn-block" id="checkoutBtn" type="button">Checkout</button>
+    </div>
+  </aside>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/product.js"></script>
+</body>
+</html>

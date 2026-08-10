@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartShop Lite — Shop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <nav class="nav-bar">
+      <a href="index.html" class="brand">Smart<span>Shop</span></a>
+      <div class="nav-search">
+        <input type="search" id="searchInput" placeholder="Search products..." aria-label="Search products" />
+      </div>
+      <div class="nav-links">
+        <a href="index.html" class="active">Shop</a>
+        <a href="admin.html">Admin</a>
+        <button class="cart-btn" data-open-cart type="button">
+          🛒 Cart <span class="cart-count">0</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-copy">
+        <span class="hero-badge">New arrivals weekly</span>
+        <h1>Everyday essentials, thoughtfully picked.</h1>
+        <p>Browse a small, well-curated catalog — search, filter by category, and check out in a couple of clicks.</p>
+        <a href="#catalog" class="hero-btn">Shop the catalog</a>
+      </div>
+      <div class="hero-visual">🛍️</div>
+    </div>
+  </section>
+
+  <main class="container" id="catalog">
+    <!-- Category chips -->
+    <div class="chip-row" id="categoryChips">
+      <button class="chip active" data-category="all" type="button">All</button>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters-bar">
+      <select id="sortSelect" aria-label="Sort products">
+        <option value="newest">Newest</option>
+        <option value="price_asc">Price: Low to High</option>
+        <option value="price_desc">Price: High to Low</option>
+        <option value="name_asc">Name: A–Z</option>
+      </select>
+      <div class="price-range">
+        <input type="number" id="minPrice" placeholder="Min $" min="0" />
+        <span>–</span>
+        <input type="number" id="maxPrice" placeholder="Max $" min="0" />
+      </div>
+      <button class="btn btn-outline" id="applyPriceBtn" type="button">Apply</button>
+      <span class="filters-count" id="resultsCount"></span>
+    </div>
+
+    <!-- Product grid -->
+    <div class="product-grid" id="productGrid">
+      <div class="skeleton"></div>
+      <div class="skeleton"></div>
+      <div class="skeleton"></div>
+      <div class="skeleton"></div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination" id="pagination"></div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">SmartShop Lite &mdash; a demo e-commerce app built with Node.js, Express &amp; MongoDB.</div>
+  </footer>
+
+  <!-- Cart drawer -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart">
+    <div class="cart-drawer__header">
+      <h2>Your Cart</h2>
+      <button class="cart-close" id="cartClose" type="button" aria-label="Close cart">&times;</button>
+    </div>
+    <div class="cart-drawer__items" id="cartItems"></div>
+    <div class="cart-drawer__footer">
+      <div class="cart-subtotal">
+        <span>Subtotal</span>
+        <span id="cartSubtotal">$0.00</span>
+      </div>
+      <button class="btn btn-primary btn-block" id="checkoutBtn" type="button">Checkout</button>
+    </div>
+  </aside>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
