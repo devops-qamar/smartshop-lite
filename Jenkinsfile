@@ -39,8 +39,8 @@ pipeline {
                 ]) {
                     sh '''
                         echo "$DOCKER_PASSWORD" | docker login \
-                        -u "$DOCKER_USERNAME" \
-                        --password-stdin
+                            -u "$DOCKER_USERNAME" \
+                            --password-stdin
                     '''
                 }
             }
@@ -55,13 +55,56 @@ pipeline {
 
         stage('Deploy to EC2') {
             steps {
-                sshagent(['ec2-ssh']) {
+                withCredentials([
+                    sshUserPrivateKey(
+                        credentialsId: 'ec2-ssh',
+                        keyFileVariable: 'SSH_KEY',
+                        usernameVariable: 'SSH_USER'
+                    )
+                ]) {
                     sh '''
-                        ssh -o StrictHostKeyChecking=no ubuntu@43.204.147.161 "
-                            cd ~/smartshop &&
-                            docker compose pull &&
-                            docker compose up -d
-                        "
+                        ssh -o StrictHostKeyChecking=no \
+                            -i "$SSH_KEY" \
+                            "$SSH_USER"@43.204.147.161 << 'EOF'
+
+                        set -e
+
+                        echo "=== Pulling latest images ==="
+
+                        docker pull qamardev/smartshop-backend:latest
+                        docker pull qamardev/smartshop-frontend:latest
+
+                        echo "=== Stopping old containers ==="
+
+                        docker stop smartshop-backend 2>/dev/null || true
+                        docker stop smartshop-frontend 2>/dev/null || true
+
+                        echo "=== Removing old containers ==="
+
+                        docker rm smartshop-backend 2>/dev/null || true
+                        docker rm smartshop-frontend 2>/dev/null || true
+
+                        echo "=== Starting backend ==="
+
+                        docker run -d \
+                            --name smartshop-backend \
+                            -p 5000:5000 \
+                            qamardev/smartshop-backend:latest
+
+                        echo "=== Starting frontend ==="
+
+                        docker run -d \
+                            --name smartshop-frontend \
+                            -p 8081:80 \
+                            qamardev/smartshop-frontend:latest
+
+                        echo "=== Running containers ==="
+
+                        docker ps
+
+                        echo "=== Deployment completed successfully ==="
+
+                        EOF
                     '''
                 }
             }
