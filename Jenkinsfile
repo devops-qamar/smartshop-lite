@@ -52,5 +52,19 @@ pipeline {
                 sh 'docker push qamardev/smartshop-frontend:latest'
             }
         }
+
+        stage('Deploy to EC2') {
+            steps {
+                sshagent(['ec2-ssh']) {
+                    sh '''
+                        ssh -o StrictHostKeyChecking=no ubuntu@43.204.147.161 "
+                            cd ~/smartshop &&
+                            docker compose pull &&
+                            docker compose up -d
+                        "
+                    '''
+                }
+            }
+        }
     }
 }
