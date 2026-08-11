@@ -2,8 +2,7 @@
  * Central API client for SmartShop Lite.
  * Change API_BASE_URL if the backend runs somewhere other than localhost:5000.
  */
-const API_BASE_URL = window.SMARTSHOP_API_BASE_URL || 'http://localhost:5000/api';
-
+const API_BASE_URL = window.SMARTSHOP_API_BASE_URL || 'http://43.204.147.161:5000/api';
 async function handleResponse(res) {
   let data = null;
   try {

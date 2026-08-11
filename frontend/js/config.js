@@ -4,4 +4,4 @@
  * script runs) to point the frontend at a different backend, e.g. when
  * running behind Docker or deployed to a real domain.
  */
-window.SMARTSHOP_API_BASE_URL = window.SMARTSHOP_API_BASE_URL || 'http://localhost:5000/api';
+window.SMARTSHOP_API_BASE_URL = window.SMARTSHOP_API_BASE_URL || 'http://43.204.147.161:5000/api';
